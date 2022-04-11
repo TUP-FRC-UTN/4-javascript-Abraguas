@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio Clase 4</title>
+</head>
+
+<body>
+    <h2>Validacion de form a partir del ejercicio de la clase 2</h2>
+    <br><br>
+    <h2>Encuesta de servicio</h2>
+    <form action="/" method="post">
+        Califica tu última experiencia con nuestro servicio: <br>
+        <input type="radio" name="valoracion" id="valoracion">😞
+        <input type="radio" name="valoracion" id="valoracion">🙁
+        <input type="radio" name="valoracion" id="valoracion">😐
+        <input type="radio" name="valoracion" id="valoracion">🙂
+        <input type="radio" name="valoracion" id="valoracion">😀
+        <br><br> ¿Que aspectos consideras que podriamos mejorar? <br>
+        <input type="checkbox" name="mejoras" id="mejoras">Tiempos de envío<br>
+        <input type="checkbox" name="mejoras" id="mejoras">Comida<br>
+        <input type="checkbox" name="mejoras" id="mejoras">Actitud del delivery<br>
+        <input type="checkbox" name="mejoras" id="mejoras">Atención del restaurante<br>
+        <input type="checkbox" name="mejoras" id="mejoras">Empaquetado<br>
+        <input type="checkbox" name="mejoras" id="mejoras">Ninguno<br>
+        <br> Comentarios adicionales: <br>
+        <textarea name="comentarios" id="comentarios" cols="30" rows="10" placeholder="Escribe aqui tu comentario..."></textarea>
+        <br><br> Fecha de la entrega: <br>
+        <input type="date" name="fecha-entrega" id="fecha-entrega"> <br>
+        <br> Ingrese su e-mail:
+        <br>
+        <input type="text" name="e-mail" id="e-mail">
+        <br>
+        <input type="checkbox" name="recibir_notificaciones" id="recibir_notificaciones" checked> quiero recibir avisos para participar de las proximas encuestas
+        <br><br>
+        <button type="button" onclick="guardarDatos()">Enviar</button>
+    </form>
+    <script>
+        function validarForm() {
+            let algunaValoracion = false;
+            let valoracion = document.getElementsByName('valoracion');
+            for (let i = 0; i < valoracion.length; i++) {
+                if (valoracion[i].checked) {
+                    algunaValoracion = true;
+                }
+
+            }
+            if (!algunaValoracion) {
+                alert("Debe seleccionar una valoración");
+                return false;
+            }
+
+
+
+            let algunaMejora = false;
+            let mejoras = document.getElementsByName('mejoras');
+            for (let i = 0; i < mejoras.length; i++) {
+                if (mejoras[i].checked) {
+                    algunaMejora = true;
+                }
+
+            }
+            if (!algunaMejora) {
+                alert("Debe seleccionar al menos una opcion");
+                return false;
+            }
+
+            let comentarios = document.getElementById('comentarios');
+            if (comentarios.value.length > 150) {
+                alert("El comentario no debe exceder los 150 caracteres");
+                return false;
+            }
+
+            let fechaEntrega = document.getElementById('fecha-entrega');
+            if (fechaEntrega.valueAsDate > new Date()) {
+                alert('La fecha seleccionada no puede ser posterior a la de hoy');
+                return false
+            }
+
+
+            let email = document.getElementById('e-mail');
+            var regex = /.@./;
+            if (!email.value.match(regex)) {
+                alert('Debe ingresar un email válido.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function guardarDatos() {
+            if (validarForm()) {
+                alert('Guardando datos...');
+            } else {
+                alert('Error de validación.');
+            }
+        }
+    </script>
+</body>
+
+</html>
